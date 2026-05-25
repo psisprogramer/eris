@@ -263,7 +263,7 @@ function useParallax(wrapperRef) {
 function useLiveTelemetry() {
   const [tele, setTele] = useState({
     lat: '+23.7841', lon: '−147.2290', alt: '421.8',
-    grav: '9.7832', gVar: '±0.0003',
+    grav: '8.6842', gVar: '±0.0003',
     freq: '0.0031', snr: '34.7', buf: '84.2',
     utc: '--:--:--',
   });
@@ -276,7 +276,7 @@ function useLiveTelemetry() {
       setTele(prev => ({
         ...prev,
         alt:  jitter(421.8,  0.05, 1),
-        grav: jitter(9.7832, 0.0010, 4),
+        grav: jitter(8.6842, 0.0010, 4),
         freq: jitter(0.0031, 0.0003, 4),
         utc:  `${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}:${pad(now.getUTCSeconds())}`,
       }));
@@ -474,7 +474,7 @@ export default function Landing() {
             ['PRESIÓN', '101.3 kPa'],
             ['TEMP EXTERIOR', '−270.2 °C'],
             ['RADIACIÓN SOLAR', '1,361 W/m²'],
-            ['CAMPO MAGNÉTICO', '0.42 μT'],
+            ['CAMPO MAGNÉTICO', '32.4 μT'],
             ['PROTOCOLO', 'ERIS v4.2.1'],
             ['ESTADO', 'NOMINAL'],
             ['UTC', tele.utc],
@@ -482,7 +482,7 @@ export default function Landing() {
             ['PRESIÓN', '101.3 kPa'],
             ['TEMP EXTERIOR', '−270.2 °C'],
             ['RADIACIÓN SOLAR', '1,361 W/m²'],
-            ['CAMPO MAGNÉTICO', '0.42 μT'],
+            ['CAMPO MAGNÉTICO', '32.4 μT'],
             ['PROTOCOLO', 'ERIS v4.2.1'],
             ['ESTADO', 'NOMINAL'],
           ].map(([k, v], i) => (

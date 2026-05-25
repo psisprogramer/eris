@@ -54,8 +54,8 @@ function DebriefQuestion({ dq }) {
       ) : (
         <p className="dq-feedback">
           {picked === dq.correct
-            ? 'Correcto. Tu observacion fue precisa.'
-            : 'No exacto. Vuelve a la simulacion y observa con atencion.'}
+            ? 'Correcto. Tu observación fue precisa.'
+            : 'No exacto. Vuelve a la simulación y observa con atención.'}
         </p>
       )}
     </div>
@@ -83,7 +83,7 @@ export default function Debrief() {
       <SpaceBackground intensity={0.7} drift={false} />
       <div className="debrief-overlay">
         <header className="debrief-top fade-in">
-          <span className="label">{mission.codename} · BITACORA</span>
+          <span className="label">{mission.codename} · BITÁCORA</span>
           <button className="hub-exit" onClick={() => nav('/hub')}>&#8592; HUB</button>
         </header>
 
@@ -97,17 +97,17 @@ export default function Debrief() {
           {mission.debriefQuestion && (
             <HoloPanel
               title="Comprueba lo aprendido"
-              subtitle="Basado en lo que observaste en la simulacion"
+              subtitle="Basado en lo que observaste en la simulación"
               className="debrief-questions"
             >
               <DebriefQuestion dq={mission.debriefQuestion} />
             </HoloPanel>
           )}
 
-          <HoloPanel title="Tus observaciones" subtitle="Que notaste durante la simulacion?">
+          <HoloPanel title="Tus observaciones" subtitle="¿Qué notaste durante la simulación?">
             <textarea
               className="logbook"
-              placeholder="Describe lo que observaste, lo que te sorprendio o lo que entendiste. Escribe con tus propias palabras."
+              placeholder="Describe lo que observaste, lo que te sorprendió o lo que entendiste. Escribe con tus propias palabras."
               value={note}
               onChange={(e) => setNote(e.target.value)}
             />
@@ -137,7 +137,7 @@ export default function Debrief() {
             </HoloButton>
             {next ? (
               <HoloButton onClick={() => nav('/simulation/' + next.id)}>
-                Siguiente mision: {next.title} &#8594;
+                Siguiente misión: {next.title} &#8594;
               </HoloButton>
             ) : (
               <HoloButton onClick={() => nav('/hub')}>
