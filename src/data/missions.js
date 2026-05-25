@@ -102,7 +102,7 @@ export const missions = [
     bodies: [
       { id: 'a',     mass: 40,  position: [-3, 0, 0], velocity: [0, 0,  1.83], color: '#FFB36B', radius: 1.1,  label: 'Estrella A' },
       { id: 'b',     mass: 40,  position: [ 3, 0, 0], velocity: [0, 0, -1.83], color: '#FF8A4C', radius: 1.1,  label: 'Estrella B' },
-      { id: 'probe', mass: 0.5, position: [0, 0, 8],  velocity: [3.0, 0, 0],   color: '#7DE2FC', radius: 0.25, label: 'Sonda' },
+      { id: 'probe', mass: 0.05, position: [0, 0, 8],  velocity: [3.0, 0, 0],   color: '#7DE2FC', radius: 0.25, label: 'Sonda' },
     ],
     focus: 'free',
     quiz: [

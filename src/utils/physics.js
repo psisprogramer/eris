@@ -47,15 +47,38 @@ export function computeAccelerations(bodies) {
 }
 
 /**
- * Integración semi-implícita de Euler.
- * Estable para órbitas a paso pequeño, fácil de leer pedagógicamente.
+ * Integración Velocity Verlet — 2.º orden, simpléctico.
+ * Conserva la energía mecánica a largo plazo sin drift acumulado.
+ *
+ *   1. a₀ = aceleración en posición actual
+ *   2. x(t+dt) = x + v·dt + ½·a₀·dt²
+ *   3. a₁ = aceleración en la nueva posición
+ *   4. v(t+dt) = v + ½·(a₀ + a₁)·dt
+ *
+ * Sustituye a Euler semi-implícito para garantizar órbitas estables
+ * en sistemas de N cuerpos sin que los planetas "escapen" con el tiempo.
  */
 export function integrate(bodies, dt) {
-  const acc = computeAccelerations(bodies);
+  // — Paso 1: aceleraciones actuales —
+  const a0 = computeAccelerations(bodies);
+
+  // — Paso 2: actualizar posiciones (corrección de 2.º orden) —
   bodies.forEach((body, i) => {
     if (body.fixed) return;
-    body.velocity.addScaledVector(acc[i], dt);
-    body.position.addScaledVector(body.velocity, dt);
+    body.position.x += body.velocity.x * dt + 0.5 * a0[i].x * dt * dt;
+    body.position.y += body.velocity.y * dt + 0.5 * a0[i].y * dt * dt;
+    body.position.z += body.velocity.z * dt + 0.5 * a0[i].z * dt * dt;
+  });
+
+  // — Paso 3: aceleraciones en la nueva posición —
+  const a1 = computeAccelerations(bodies);
+
+  // — Paso 4: actualizar velocidades con aceleración promedio —
+  bodies.forEach((body, i) => {
+    if (body.fixed) return;
+    body.velocity.x += 0.5 * (a0[i].x + a1[i].x) * dt;
+    body.velocity.y += 0.5 * (a0[i].y + a1[i].y) * dt;
+    body.velocity.z += 0.5 * (a0[i].z + a1[i].z) * dt;
   });
 }
 
