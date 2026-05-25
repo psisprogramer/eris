@@ -1,0 +1,8 @@
+node_modules
+dist
+.DS_Store
+*.log
+.vite
+
+# Archivos temporales de transpilacion de Vite (se generan al correr dev)
+vite.config.js.timestamp-*.mjs

@@ -1,0 +1,316 @@
+/* ============================================================
+   Hub · ERIS · Centro de Operaciones
+   Holograma central dominante. Minimalismo respirable.
+   ============================================================ */
+
+.hub {
+  background: var(--space-void);
+  overflow: hidden;
+}
+
+.hub-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  padding: 26px 36px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  animation: fade-in 1.6s var(--ease-cinema);
+}
+.hub-overlay > * { pointer-events: auto; }
+
+/* ============================================================
+   Topbar
+   ============================================================ */
+.hub-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(184, 216, 255, 0.06);
+}
+
+.hub-top .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  letter-spacing: 0.32em;
+  font-size: 0.66rem;
+}
+.hub-top .brand-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+.hub-top .brand-name {
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--stellar-white);
+  text-shadow: 0 0 16px rgba(125, 226, 252, 0.35);
+}
+.hub-top .brand-sep    { color: var(--white-faint); }
+.hub-top .brand-version{
+  font-size: 0.58rem;
+  color: var(--white-dim);
+  letter-spacing: 0.42em;
+}
+
+.hub-top-right {
+  display: flex;
+  gap: 26px;
+  align-items: center;
+}
+
+.hub-top-right .label-quiet {
+  font-size: 0.56rem;
+  letter-spacing: 0.42em;
+  color: var(--white-faint);
+}
+
+.hub-exit {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.42em;
+  color: var(--white-dim);
+  padding: 8px 16px;
+  border: 1px solid rgba(184, 216, 255, 0.12);
+  border-radius: 2px;
+  background: rgba(11, 16, 32, 0.4);
+  backdrop-filter: blur(12px);
+  transition: 320ms var(--ease-soft);
+}
+.hub-exit:hover {
+  color: var(--cyan-soft-blue);
+  border-color: rgba(125, 226, 252, 0.5);
+  box-shadow: 0 0 22px rgba(125, 226, 252, 0.18);
+}
+
+/* ============================================================
+   Texto bajo el holograma central
+   ============================================================ */
+.hub-center-text {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  max-width: 620px;
+  animation: fade-up 2.2s var(--ease-cinema) 480ms both;
+}
+
+.hub-center-text .label {
+  display: inline-block;
+  margin-bottom: 14px;
+  opacity: 0.7;
+}
+
+.hub-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+  color: var(--stellar-white);
+  text-shadow: 0 0 32px rgba(125, 226, 252, 0.32);
+}
+
+.hub-quote {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--white-dim);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.85;
+  font-size: 0.94rem;
+}
+
+.hub-quote em {
+  color: var(--cyan-soft-blue);
+  font-style: italic;
+}
+
+/* ============================================================
+   Bitácora flotante izquierda
+   ============================================================ */
+.hub-missions {
+  position: absolute;
+  top: 110px;
+  left: 36px;
+  width: 320px;
+  max-height: calc(100vh - 200px);
+  padding: 22px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: linear-gradient(180deg, rgba(11, 16, 32, 0.55), rgba(11, 16, 32, 0.35));
+  border: 1px solid rgba(125, 226, 252, 0.14);
+  border-radius: 4px;
+  backdrop-filter: blur(28px) saturate(150%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(184, 216, 255, 0.07);
+  z-index: 3;
+  animation: fade-up 1.8s var(--ease-cinema) 280ms both;
+  overflow: hidden;
+}
+
+.missions-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(184, 216, 255, 0.08);
+}
+.missions-count {
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  letter-spacing: 0.32em;
+  color: var(--white-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.mission-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Mini progreso */
+.missions-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(184, 216, 255, 0.06);
+}
+
+.progress-bar {
+  flex: 1;
+  height: 2px;
+  background: rgba(125, 226, 252, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--cyan-soft-blue));
+  box-shadow: 0 0 14px var(--cyan-glow);
+  transition: width 1400ms var(--ease-cinema);
+}
+
+.progress-pct {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  text-shadow: 0 0 10px rgba(125, 226, 252, 0.35);
+}
+
+/* ============================================================
+   Descubrimientos (derecha)
+   ============================================================ */
+.hub-discoveries {
+  position: absolute;
+  top: 110px;
+  right: 36px;
+  width: 280px;
+  padding: 18px 20px;
+  background: rgba(9, 11, 17, 0.45);
+  border: 1px solid rgba(184, 216, 255, 0.08);
+  border-radius: 4px;
+  backdrop-filter: blur(24px);
+  z-index: 3;
+  animation: fade-up 1.8s var(--ease-cinema) 400ms both;
+}
+.hub-discoveries .label { display: block; margin-bottom: 14px; opacity: 0.7; }
+
+.discovery-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.discovery-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--white-dim);
+  line-height: 1.55;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.78rem;
+}
+.discovery-list .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--orbital-amber);
+  box-shadow: 0 0 8px rgba(255, 179, 107, 0.5);
+  margin-top: 8px;
+  flex-shrink: 0;
+  animation: breathe-soft 4s var(--ease-breath) infinite;
+}
+
+/* ============================================================
+   Bottombar
+   ============================================================ */
+.hub-bottom {
+  position: absolute;
+  bottom: 22px;
+  left: 36px;
+  right: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(184, 216, 255, 0.06);
+  padding-top: 12px;
+  flex-wrap: wrap;
+  gap: 14px;
+  animation: fade-in 2s var(--ease-cinema) 700ms both;
+}
+
+.hub-bottom .label-quiet {
+  font-size: 0.54rem;
+  letter-spacing: 0.42em;
+  color: var(--white-faint);
+}
+
+.hub-bottom .bot-sep {
+  width: 22px;
+  height: 1px;
+  background: rgba(184, 216, 255, 0.08);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1100px) {
+  .hub-missions { width: 280px; }
+  .hub-discoveries { width: 240px; }
+}
+
+@media (max-width: 880px) {
+  .hub-missions, .hub-discoveries {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+    max-height: none;
+  }
+  .hub-overlay {
+    grid-template-rows: auto auto auto auto auto;
+  }
+  .hub-center-text { position: relative; bottom: auto; transform: none; margin: 24px auto; }
+  .hub-bottom { position: relative; bottom: auto; left: auto; right: auto; }
+}

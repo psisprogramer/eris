@@ -1,0 +1,157 @@
+/* ============================================================
+   HoloSlider · instrumento científico
+   Track con escala, marcas orbitales, indicador luminoso.
+   ============================================================ */
+
+.holo-slider {
+  display: block;
+  position: relative;
+  user-select: none;
+  padding: 6px 0 14px;
+  cursor: ew-resize;
+}
+
+.holo-slider-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14px;
+}
+
+.holo-slider-label {
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  opacity: 0.82;
+}
+
+.holo-slider-value {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--stellar-white);
+  letter-spacing: 0.18em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 14px rgba(125, 226, 252, 0.4);
+}
+
+/* Input range invisible cubre todo el carril */
+.holo-slider input[type='range'] {
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  width: calc(100% + 8px);
+  height: 28px;
+  bottom: 4px;
+  opacity: 0;
+  cursor: ew-resize;
+  z-index: 3;
+  margin: 0;
+  padding: 0;
+}
+
+/* Track principal con tic marks integrados */
+.holo-slider-track {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(125, 226, 252, 0.06),
+    rgba(125, 226, 252, 0.18) 50%,
+    rgba(125, 226, 252, 0.06)
+  );
+  border-radius: 0;
+  margin-bottom: 2px;
+}
+
+/* Marcas verticales (ticks) — escala instrumental */
+.holo-slider-track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -5px;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent calc(5% - 1px),
+    rgba(184, 216, 255, 0.22) calc(5% - 1px),
+    rgba(184, 216, 255, 0.22) 5%
+  );
+  pointer-events: none;
+}
+
+/* Marcas grandes cada 25% */
+.holo-slider-track::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8px;
+  height: 8px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent calc(25% - 1px),
+    rgba(125, 226, 252, 0.55) calc(25% - 1px),
+    rgba(125, 226, 252, 0.55) 25%
+  );
+  pointer-events: none;
+}
+
+/* Relleno luminoso */
+.holo-slider-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg,
+    rgba(125, 226, 252, 0.55),
+    var(--cyan-soft-blue));
+  box-shadow:
+    0 0 14px rgba(125, 226, 252, 0.5),
+    0 0 28px rgba(125, 226, 252, 0.2);
+  border-radius: 0;
+  transition: width 120ms linear;
+}
+
+/* Indicador esférico flotante — anillo orbital */
+.holo-slider-fill::after {
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--stellar-white), var(--cyan) 70%);
+  box-shadow:
+    0 0 12px var(--cyan-glow),
+    0 0 24px rgba(125, 226, 252, 0.35),
+    inset 0 0 4px rgba(11, 16, 32, 0.6);
+}
+
+/* Halo del indicador */
+.holo-slider-fill::before {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(125, 226, 252, 0.25);
+  opacity: 0.6;
+  pointer-events: none;
+  animation: halo-pulse 4.5s var(--ease-breath) infinite;
+}
+
+.holo-slider:hover .holo-slider-fill::before {
+  border-color: rgba(125, 226, 252, 0.5);
+  opacity: 1;
+}

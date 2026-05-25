@@ -1,0 +1,135 @@
+/* ============================================================
+   AIAssistant · presencia integrada a la estación
+   No es un chatbot. Es la voz silenciosa de ERIS.
+   ============================================================ */
+
+.ai-assistant {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 20px 22px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(125, 226, 252, 0.05), rgba(11, 16, 32, 0.52));
+  border: 1px solid rgba(125, 226, 252, 0.16);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    inset 0 0 50px rgba(125, 226, 252, 0.03),
+    inset 0 1px 0 rgba(184, 216, 255, 0.06);
+}
+
+/* Halo radial desde el avatar */
+.ai-assistant::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 8% 30%, rgba(125, 226, 252, 0.14), transparent 55%);
+  pointer-events: none;
+}
+
+/* Línea sutil que da sensación de panel embarcado */
+.ai-assistant::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 8px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(125, 226, 252, 0.2), transparent);
+  pointer-events: none;
+}
+
+/* ---- Avatar / núcleo ---- */
+.ai-avatar {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+
+.ai-core {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--stellar-white), var(--cyan) 70%);
+  box-shadow:
+    0 0 16px var(--cyan-glow),
+    0 0 40px rgba(125, 226, 252, 0.35);
+  animation: breathe-soft 3.8s var(--ease-breath) infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.ai-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(125, 226, 252, 0.32);
+  pointer-events: none;
+}
+.ai-ring.r1 {
+  width: 26px;
+  height: 26px;
+  animation: halo-pulse 4.5s var(--ease-breath) infinite;
+}
+.ai-ring.r2 {
+  width: 44px;
+  height: 44px;
+  opacity: 0.4;
+  animation: halo-pulse 6.5s var(--ease-breath) infinite reverse;
+  border-color: rgba(184, 216, 255, 0.2);
+}
+
+/* ---- Mensaje ---- */
+.ai-message {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: 0.85;
+  text-shadow: 0 0 10px rgba(125, 226, 252, 0.3);
+}
+
+.ai-text {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 300;
+  color: var(--stellar-white);
+  line-height: 1.7;
+  min-height: 2.4em;
+  letter-spacing: 0.01em;
+}
+
+.ai-caret {
+  display: inline-block;
+  width: 1px;
+  height: 0.9em;
+  background: var(--cyan);
+  vertical-align: middle;
+  margin-left: 4px;
+  box-shadow: 0 0 6px var(--cyan-glow);
+  animation: blink 1.1s steps(2) infinite;
+}
+
+/* ---- Variante compacta (sidebar de simulación) ---- */
+.ai-assistant.compact { padding: 16px 18px; gap: 14px; }
+.ai-assistant.compact .ai-avatar { width: 36px; height: 36px; }
+.ai-assistant.compact .ai-core { width: 9px; height: 9px; }
+.ai-assistant.compact .ai-ring.r1 { width: 20px; height: 20px; }
+.ai-assistant.compact .ai-ring.r2 { width: 34px; height: 34px; }
+.ai-assistant.compact .ai-text { font-size: 0.8rem; line-height: 1.65; }

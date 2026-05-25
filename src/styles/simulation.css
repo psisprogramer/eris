@@ -1,0 +1,217 @@
+/* ============================================================
+   Simulation · ERIS
+   Layout fullscreen. Consola flotante abajo. Sidebar izquierda.
+   Pista contextual minimal arriba a la derecha.
+   ============================================================ */
+
+.sim {
+  background: var(--space-void);
+  position: relative;
+}
+
+/* Vignetting + aberración leve (sensación de telescopio) */
+.sim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.55) 100%),
+    radial-gradient(circle at 50% 50%, transparent 72%, rgba(125, 226, 252, 0.02) 92%, transparent 100%);
+  z-index: 4;
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   HUD superior
+   ============================================================ */
+.sim-hud-top {
+  position: absolute;
+  top: 22px;
+  left: 86px;
+  right: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 5;
+  pointer-events: none;
+  gap: 24px;
+  animation: fade-in 1.4s var(--ease-cinema);
+}
+.sim-hud-top > * { pointer-events: auto; }
+
+.sim-mission { max-width: 520px; }
+
+.sim-mission .label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.6rem;
+  letter-spacing: 0.42em;
+  color: var(--cyan);
+  opacity: 0.78;
+}
+
+.sim-mission h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stellar-white);
+  text-shadow: 0 0 22px rgba(125, 226, 252, 0.35);
+  margin-bottom: 6px;
+}
+
+.sim-mission p {
+  font-family: var(--font-body);
+  color: var(--white-dim);
+  font-size: 0.84rem;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.sim-meta {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-ui);
+  gap: 4px;
+}
+.meta-item .label-quiet {
+  font-size: 0.52rem;
+  letter-spacing: 0.42em;
+}
+
+.meta-value {
+  font-family: var(--font-display);
+  color: var(--cyan);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 14px var(--cyan-glow);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   Pista flotante (reemplaza al panel lateral)
+   ============================================================ */
+.sim-hint {
+  position: absolute;
+  top: 130px;
+  right: 28px;
+  width: 280px;
+  padding: 16px 18px;
+  background: linear-gradient(180deg, rgba(11, 16, 32, 0.55), rgba(11, 16, 32, 0.35));
+  border: 1px solid rgba(125, 226, 252, 0.16);
+  border-radius: 4px;
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  z-index: 5;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(184, 216, 255, 0.06);
+  animation: fade-up 1.6s var(--ease-cinema) 360ms both;
+}
+
+.hint-label {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 10px;
+  text-shadow: 0 0 12px rgba(125, 226, 252, 0.35);
+}
+
+.sim-hint p {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--white-cold);
+  margin-bottom: 14px;
+}
+
+.hint-cta {
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: var(--cyan);
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(125, 226, 252, 0.3);
+  transition: 320ms var(--ease-cinema);
+}
+.hint-cta:hover {
+  color: var(--stellar-white);
+  border-bottom-color: var(--cyan);
+  letter-spacing: 0.44em;
+}
+
+/* ============================================================
+   Footer científico
+   ============================================================ */
+.sim-footer {
+  position: absolute;
+  bottom: 14px;
+  left: 86px;
+  right: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 3;
+  pointer-events: none;
+  animation: fade-in 1.8s var(--ease-cinema) 720ms both;
+}
+
+.sim-footer .label-quiet {
+  font-family: var(--font-display);
+  font-size: 0.5rem;
+  letter-spacing: 0.42em;
+  color: var(--white-faint);
+}
+
+.sim-footer .label-quiet:first-child {
+  color: var(--cyan);
+  opacity: 0.5;
+  font-size: 0.56rem;
+  letter-spacing: 0.28em;
+}
+
+/* ============================================================
+   Exit button (compartido)
+   ============================================================ */
+.sim .hub-exit {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.42em;
+  color: var(--white-dim);
+  padding: 8px 16px;
+  border: 1px solid rgba(184, 216, 255, 0.12);
+  border-radius: 2px;
+  background: rgba(11, 16, 32, 0.4);
+  backdrop-filter: blur(12px);
+  transition: 320ms var(--ease-soft);
+}
+.sim .hub-exit:hover {
+  color: var(--cyan-soft-blue);
+  border-color: rgba(125, 226, 252, 0.5);
+  box-shadow: 0 0 24px rgba(125, 226, 252, 0.18);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 980px) {
+  .sim-hud-top  { left: 24px; flex-direction: column; gap: 12px; }
+  .sim-footer   { left: 24px; right: 24px; }
+  .sim-hint     { top: 220px; right: 14px; width: 240px; }
+  .sim-meta     { flex-wrap: wrap; gap: 16px; }
+}

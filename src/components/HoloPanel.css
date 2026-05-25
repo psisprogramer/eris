@@ -1,0 +1,101 @@
+/* ============================================================
+   HoloPanel · panel flotante de la estación
+   Glassmorphism atmosférico, esquinas HUD, sombra cinematográfica.
+   ============================================================ */
+
+.holo-panel {
+  position: relative;
+  padding: 24px 24px 22px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(11, 16, 32, 0.55), rgba(11, 16, 32, 0.32));
+  border: 1px solid rgba(125, 226, 252, 0.14);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  color: var(--stellar-white);
+  box-shadow:
+    0 32px 70px rgba(0, 0, 0, 0.5),
+    inset 0 0 60px rgba(125, 226, 252, 0.025),
+    inset 0 1px 0 rgba(184, 216, 255, 0.08);
+  overflow: hidden;
+}
+
+/* Halo interior muy sutil — sensación de aire dentro del panel */
+.holo-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(125, 226, 252, 0.06), transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(255, 138, 76, 0.025), transparent 55%);
+  pointer-events: none;
+}
+
+.holo-strong {
+  background: linear-gradient(180deg, rgba(11, 16, 32, 0.72), rgba(11, 16, 32, 0.45));
+  border-color: rgba(125, 226, 252, 0.32);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.6),
+    0 0 32px rgba(125, 226, 252, 0.10),
+    inset 0 0 60px rgba(125, 226, 252, 0.05);
+}
+
+.holo-quiet {
+  background: rgba(9, 11, 17, 0.5);
+  border-color: rgba(184, 216, 255, 0.08);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    inset 0 0 40px rgba(125, 226, 252, 0.015);
+}
+
+.holo-head {
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid rgba(184, 216, 255, 0.06);
+  position: relative;
+  z-index: 1;
+}
+
+.holo-title {
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  letter-spacing: 0.36em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(125, 226, 252, 0.35);
+}
+
+.holo-sub {
+  font-family: var(--font-ui);
+  font-size: 0.74rem;
+  font-weight: 300;
+  color: var(--white-dim);
+  letter-spacing: 0.06em;
+}
+
+.holo-body {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--white-cold);
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Esquinas marcadas HUD ---- */
+.holo-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(125, 226, 252, 0.6);
+  opacity: 0.75;
+  pointer-events: none;
+}
+.holo-corner.tl { top: 8px;    left: 8px;    border-top: 1px solid; border-left: 1px solid; }
+.holo-corner.tr { top: 8px;    right: 8px;   border-top: 1px solid; border-right: 1px solid; }
+.holo-corner.bl { bottom: 8px; left: 8px;    border-bottom: 1px solid; border-left: 1px solid; }
+.holo-corner.br { bottom: 8px; right: 8px;   border-bottom: 1px solid; border-right: 1px solid; }

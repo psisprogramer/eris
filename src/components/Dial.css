@@ -1,0 +1,177 @@
+/* ============================================================
+   Dial · instrumento científico circular
+   ============================================================ */
+
+.dial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dial-label {
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--white-faint);
+  margin: 0;
+  text-align: center;
+}
+
+.dial-wrap {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  cursor: ns-resize;
+  display: grid;
+  place-items: center;
+  transition: filter 320ms var(--ease-cinema);
+}
+
+.dial-wrap:hover { filter: brightness(1.18); }
+
+.dial-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Arco base */
+.dial-track {
+  stroke: rgba(184, 216, 255, 0.10);
+}
+
+/* Arco lleno */
+.dial-fill {
+  stroke: var(--cyan);
+  filter: drop-shadow(0 0 6px var(--cyan-glow));
+  transition: stroke-dasharray 200ms var(--ease-soft);
+}
+
+/* Marcas */
+.dial-tick {
+  stroke: rgba(184, 216, 255, 0.25);
+}
+.dial-tick.big {
+  stroke: rgba(125, 226, 252, 0.55);
+}
+
+/* Indicador (perilla orbital) */
+.dial-knob-dot {
+  fill: var(--stellar-white);
+  filter: drop-shadow(0 0 6px var(--cyan-glow));
+}
+.dial-knob-halo {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 0.8;
+  opacity: 0.4;
+  transition: opacity 320ms var(--ease-soft);
+}
+
+/* Core central translúcido */
+.dial-core {
+  fill: rgba(11, 16, 32, 0.55);
+  stroke: rgba(125, 226, 252, 0.12);
+  stroke-width: 0.6;
+}
+
+/* Lectura numérica */
+.dial-readout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  gap: 1px;
+  z-index: 2;
+}
+
+.dial-value {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--stellar-white);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 12px rgba(125, 226, 252, 0.4);
+  line-height: 1;
+}
+
+.dial-unit {
+  font-family: var(--font-display);
+  font-size: 0.5rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  color: var(--cyan);
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   Estados
+   ============================================================ */
+.dial:hover .dial-knob-halo { opacity: 0.85; }
+.dial:hover .dial-label { color: var(--white-dim); }
+.dial:hover .dial-core { fill: rgba(11, 16, 32, 0.7); stroke: rgba(125, 226, 252, 0.25); }
+
+.dial.is-active .dial-knob-halo {
+  opacity: 1;
+  animation: halo-pulse 1.6s var(--ease-breath) infinite;
+}
+.dial.is-active .dial-knob-dot {
+  filter: drop-shadow(0 0 12px var(--cyan-glow));
+}
+
+.dial.is-disabled { opacity: 0.45; pointer-events: none; }
+
+/* ============================================================
+   Variantes de color
+   ============================================================ */
+.dial-amber .dial-fill {
+  stroke: var(--warm-orange);
+  filter: drop-shadow(0 0 6px var(--amber-glow));
+}
+.dial-amber .dial-tick.big   { stroke: rgba(255, 138, 76, 0.6); }
+.dial-amber .dial-knob-halo  { stroke: var(--warm-orange); }
+.dial-amber .dial-unit       { color: var(--warm-orange); }
+.dial-amber .dial-value      { text-shadow: 0 0 12px rgba(255, 138, 76, 0.45); }
+
+.dial-stable .dial-fill {
+  stroke: var(--stable-orbit);
+  filter: drop-shadow(0 0 6px rgba(124, 255, 178, 0.5));
+}
+.dial-stable .dial-tick.big   { stroke: rgba(124, 255, 178, 0.6); }
+.dial-stable .dial-knob-halo  { stroke: var(--stable-orbit); }
+.dial-stable .dial-unit       { color: var(--stable-orbit); }
+.dial-stable .dial-value      { text-shadow: 0 0 12px rgba(124, 255, 178, 0.45); }
+
+.dial-neutral .dial-fill {
+  stroke: rgba(184, 216, 255, 0.45);
+  filter: none;
+}
+.dial-neutral .dial-tick.big  { stroke: rgba(184, 216, 255, 0.4); }
+.dial-neutral .dial-knob-halo { stroke: rgba(184, 216, 255, 0.55); }
+.dial-neutral .dial-unit      { color: var(--white-faint); }
+
+/* ============================================================
+   Tamaños
+   ============================================================ */
+.dial-sm .dial-wrap { width: 60px;  height: 60px; }
+.dial-sm .dial-value { font-size: 0.66rem; }
+.dial-sm .dial-unit  { font-size: 0.44rem; }
+.dial-sm .dial-label { font-size: 0.5rem; letter-spacing: 0.32em; }
+
+.dial-md .dial-wrap { width: 78px;  height: 78px; }
+
+.dial-lg .dial-wrap { width: 118px; height: 118px; cursor: ns-resize; }
+.dial-lg .dial-value { font-size: 1.1rem; letter-spacing: 0.06em; }
+.dial-lg .dial-unit  { font-size: 0.58rem; letter-spacing: 0.32em; }
+.dial-lg .dial-label { font-size: 0.6rem; letter-spacing: 0.42em; }
+.dial-lg .dial-fill  { filter: drop-shadow(0 0 12px var(--cyan-glow)); stroke-width: 2.4; }

@@ -1,0 +1,129 @@
+/* ============================================================
+   HoloButton · panel flotante / control orbital
+   Elegante, blur, glow tenue. Sin saturación arcade.
+   ============================================================ */
+
+.holo-btn {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(125, 226, 252, 0.06), rgba(11, 16, 32, 0.35));
+  border: 1px solid rgba(125, 226, 252, 0.28);
+  color: var(--cyan-soft-blue);
+  padding: 16px 30px;
+  border-radius: 2px;
+  transition: 420ms var(--ease-cinema);
+  overflow: hidden;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  text-shadow: 0 0 14px rgba(125, 226, 252, 0.35);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.45),
+    inset 0 0 18px rgba(125, 226, 252, 0.04);
+}
+
+/* Brillo lateral atmosférico (no destello rápido) */
+.holo-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+    transparent 35%,
+    rgba(184, 216, 255, 0.10) 50%,
+    transparent 65%);
+  transform: translateX(-140%);
+  transition: transform 1400ms var(--ease-cinema);
+  pointer-events: none;
+}
+.holo-btn:hover::before { transform: translateX(140%); }
+
+/* Línea inferior tipo carril holográfico */
+.holo-btn::after {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(125, 226, 252, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 420ms var(--ease-cinema);
+}
+
+.holo-btn:hover {
+  border-color: rgba(125, 226, 252, 0.7);
+  color: var(--stellar-white);
+  box-shadow:
+    0 16px 44px rgba(0, 0, 0, 0.55),
+    0 0 32px rgba(125, 226, 252, 0.32),
+    inset 0 0 28px rgba(125, 226, 252, 0.12);
+  transform: translateY(-1px);
+}
+.holo-btn:hover::after { opacity: 1; }
+
+.holo-btn:active { transform: translateY(0); }
+
+.holo-btn:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+  filter: saturate(40%);
+}
+
+/* ---- Variantes ---- */
+.holo-btn-primary {
+  background: linear-gradient(180deg, rgba(125, 226, 252, 0.14), rgba(125, 226, 252, 0.04));
+  border-color: rgba(125, 226, 252, 0.45);
+}
+
+.holo-btn-ghost {
+  background: transparent;
+  border-color: rgba(184, 216, 255, 0.16);
+  color: var(--white-dim);
+  text-shadow: none;
+}
+.holo-btn-ghost:hover {
+  color: var(--cyan-soft-blue);
+  border-color: rgba(125, 226, 252, 0.5);
+}
+
+.holo-btn-danger {
+  border-color: rgba(255, 138, 76, 0.45);
+  color: var(--warm-orange);
+  background: linear-gradient(180deg, rgba(255, 138, 76, 0.08), rgba(11, 16, 32, 0.35));
+  text-shadow: 0 0 14px rgba(255, 138, 76, 0.45);
+}
+.holo-btn-danger:hover {
+  border-color: var(--warm-orange);
+  color: var(--orbital-amber);
+  box-shadow:
+    0 16px 44px rgba(0, 0, 0, 0.5),
+    0 0 28px rgba(255, 138, 76, 0.35),
+    inset 0 0 22px rgba(255, 138, 76, 0.14);
+}
+
+/* ---- Tamaños ---- */
+.holo-btn-sm { padding: 9px 16px; font-size: 0.62rem; letter-spacing: 0.32em; }
+.holo-btn-md { font-size: 0.72rem; }
+.holo-btn-lg {
+  padding: 20px 42px;
+  font-size: 0.84rem;
+  letter-spacing: 0.4em;
+}
+
+/* ---- Esquinas marcadas — HUD orbital ---- */
+.holo-btn-edge {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--cyan);
+  opacity: 0.85;
+  pointer-events: none;
+}
+.holo-btn-edge.tl { top: 4px;    left: 4px;    border-top: 1px solid; border-left: 1px solid; }
+.holo-btn-edge.tr { top: 4px;    right: 4px;   border-top: 1px solid; border-right: 1px solid; }
+.holo-btn-edge.bl { bottom: 4px; left: 4px;    border-bottom: 1px solid; border-left: 1px solid; }
+.holo-btn-edge.br { bottom: 4px; right: 4px;   border-bottom: 1px solid; border-right: 1px solid; }
+
+.holo-btn-label { position: relative; z-index: 2; }
