@@ -78,15 +78,8 @@ export default function Simulation() {
     nav(`/debrief/${mission.id}`);
   }
 
-  // Adapta preguntas existentes de la misión a formato quiz
-  const quizQuestions = useMemo(() => {
-    if (mission.quiz) return mission.quiz;
-    return (mission.questions || []).slice(0, 3).map((q) => ({
-      q,
-      options: ['Sí, claramente.', 'No estoy segura.', 'No creo que sea así.'],
-      correct: 0,
-    }));
-  }, [mission]);
+  // Quiz real definido en missions.js (A/B/C con respuestas correctas)
+  const quizQuestions = mission.quiz ?? [];
 
   return (
     <div className="sim full-screen">

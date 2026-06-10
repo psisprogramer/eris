@@ -1,6 +1,7 @@
 /* ============================================================
    ERIS · Debrief / Bitácora reflexiva
-   Pantalla silenciosa. El descubrimiento se asienta aquí.
+   - Pregunta de observación A/B/C/D (respuesta correcta).
+   - Bitácora personal de texto libre.
    ============================================================ */
 
 import { useState } from 'react';
@@ -18,14 +19,22 @@ export default function Debrief() {
   const mission = getMission(missionId);
   const { addLog, logs } = useMissionProgress();
   const [note, setNote] = useState('');
+  const [picked, setPicked] = useState(null);
+  const [revealed, setRevealed] = useState(false);
 
   const missionLogs = logs.filter((l) => l.missionId === mission.id);
   const idx = missions.findIndex((m) => m.id === mission.id);
   const next = missions[idx + 1];
+  const dq = mission.debriefQuestion;
 
   function handleSave() {
     addLog(mission.id, note);
     setNote('');
+  }
+
+  function confirmAnswer() {
+    if (picked === null) return;
+    setRevealed(true);
   }
 
   return (
@@ -46,19 +55,56 @@ export default function Debrief() {
             "{mission.discovery}"
           </blockquote>
 
-          <HoloPanel
-            title="Preguntas abiertas"
-            subtitle="No hay respuestas correctas, sólo respuestas honestas"
-            className="debrief-questions"
-          >
-            <ol>
-              {mission.questions.map((q, i) => (
-                <li key={i}>{q}</li>
-              ))}
-            </ol>
-          </HoloPanel>
+          {/* ---- Pregunta de observación A/B/C/D ---- */}
+          {dq && (
+            <HoloPanel
+              title="Pregunta de observación"
+              subtitle="Lo que viste en la simulación"
+              className="debrief-observation"
+            >
+              <p className="observation-q">{dq.q}</p>
+              <ul className="observation-options">
+                {dq.options.map((opt, i) => {
+                  const letter = String.fromCharCode(65 + i);
+                  const isPicked = picked === i;
+                  const isCorrect = revealed && i === dq.correct;
+                  const isWrong = revealed && isPicked && i !== dq.correct;
+                  return (
+                    <li key={i}>
+                      <button
+                        type="button"
+                        className={`observation-opt ${isPicked ? 'is-picked' : ''} ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}`}
+                        onClick={() => !revealed && setPicked(i)}
+                        disabled={revealed}
+                      >
+                        <span className="observation-letter">{letter}</span>
+                        <span className="observation-text">{opt}</span>
+                        {isCorrect && <span className="observation-mark">✓</span>}
+                        {isWrong && <span className="observation-mark wrong">×</span>}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              {!revealed && (
+                <div className="observation-actions">
+                  <HoloButton size="sm" onClick={confirmAnswer} disabled={picked === null}>
+                    Confirmar respuesta
+                  </HoloButton>
+                </div>
+              )}
+              {revealed && (
+                <p className="observation-feedback">
+                  {picked === dq.correct
+                    ? 'Has observado bien. Eso es exactamente lo que ocurrió en el espacio.'
+                    : 'No exacto. Vuelve a mirar la simulación con calma — la geometría te lo dice todo.'}
+                </p>
+              )}
+            </HoloPanel>
+          )}
 
-          <HoloPanel title="Tu bitácora" subtitle="¿Qué te llamó la atención?">
+          {/* ---- Bitácora personal ---- */}
+          <HoloPanel title="Observaciones" subtitle="Tu bitácora libre">
             <textarea
               className="logbook"
               placeholder="Escribe libremente lo que observaste, sentiste o entendiste. Nadie corrige aquí."

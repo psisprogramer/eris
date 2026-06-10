@@ -295,11 +295,30 @@
    Responsive
    ============================================================ */
 @media (max-width: 1100px) {
-  .hub-missions { width: 280px; }
-  .hub-discoveries { width: 240px; }
+  .hub-missions { width: 260px; left: 24px; }
+  .hub-discoveries { width: 220px; right: 24px; }
+  .hub-overlay { padding: 20px 24px; }
 }
 
+
 @media (max-width: 880px) {
+  .hub {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+  .hub-overlay {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 18px 18px 80px;
+    min-height: 100vh;
+  }
+  .hub-top { flex-wrap: wrap; gap: 10px; }
+  .hub-top-right { width: 100%; justify-content: space-between; gap: 14px; }
+  .hub-top-right .label-quiet { font-size: 0.5rem; letter-spacing: 0.32em; }
   .hub-missions, .hub-discoveries {
     position: relative;
     top: auto;
@@ -308,9 +327,286 @@
     width: 100%;
     max-height: none;
   }
-  .hub-overlay {
-    grid-template-rows: auto auto auto auto auto;
+  .hub-center-text {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin: 16px auto;
+    max-width: 100%;
   }
-  .hub-center-text { position: relative; bottom: auto; transform: none; margin: 24px auto; }
-  .hub-bottom { position: relative; bottom: auto; left: auto; right: auto; }
+  .hub-title { font-size: clamp(1.1rem, 4vw, 1.5rem); letter-spacing: 0.18em; }
+  .hub-quote { font-size: 0.84rem; line-height: 1.7; }
+  .hub-bottom {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .hub-bottom .bot-sep { display: none; }
+  .hub-bottom .label-quiet { font-size: 0.5rem; letter-spacing: 0.3em; }
+}
+
+@media (max-width: 480px) {
+  .hub-overlay { padding: 14px 12px 70px; }
+  .hub-missions { padding: 16px 14px 14px; }
+  .hub-discoveries { padding: 14px 16px; }
+  .missions-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .hub-bottom .label-quiet:nth-child(n+3) { display: none; }
+}
+
+/* ============================================================
+   Fix móvil — bitácora ancho completo, sin textos cortados
+   ============================================================ */
+@media (max-width: 880px) {
+  /* La HubScene queda detrás fija */
+  .hub > canvas,
+  .hub > div:first-child { position: fixed !important; inset: 0; }
+
+  /* El overlay scrollea por encima del 3D */
+  .hub-overlay {
+    position: relative !important;
+    z-index: 5;
+    pointer-events: auto;
+  }
+
+  /* La bitácora pasa a ser bloque normal de ancho completo */
+  .hub-missions {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 16px 16px 14px !important;
+    box-sizing: border-box;
+  }
+  .hub-discoveries {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Permitir que el texto se rompa correctamente */
+  .hub-title, .hub-quote, .mission-title, .mission-subtitle,
+  .discovery-list li, .hub-quote em {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+  .mission-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Los headers y meta del topbar también que no se salgan */
+  .hub-top { flex-wrap: wrap; }
+  .hub-top-right { flex-wrap: wrap; gap: 10px; }
+}
+
+@media (max-width: 480px) {
+  .hub-overlay { padding: 12px 10px 60px !important; gap: 14px !important; }
+  .hub-missions, .hub-discoveries { padding: 12px 12px 10px !important; }
+  .mission-card { padding: 12px 12px 10px; }
+  .mission-title { font-size: 0.9rem; }
+  .mission-subtitle { font-size: 0.72rem; }
+  .mission-code { font-size: 0.5rem; letter-spacing: 0.32em; }
+}
+
+/* ============================================================
+   Fix v2 — Hub: topbar limpio, panel centrado correctamente
+   ============================================================ */
+@media (max-width: 880px) {
+  /* Topbar: ocultar contadores secundarios para que el brand+exit quepan */
+  .hub-top-right .label-quiet { display: none !important; }
+  .hub-top { gap: 8px !important; padding-bottom: 10px !important; }
+  .hub-top-right { gap: 8px !important; width: auto !important; }
+  .hub-top .brand-version { display: none !important; }
+  .hub-top .brand-name { font-size: 0.68rem !important; }
+  .hub-top .brand { font-size: 0.56rem !important; letter-spacing: 0.26em !important; }
+  .hub-exit { padding: 6px 10px !important; font-size: 0.5rem !important; letter-spacing: 0.32em !important; }
+
+  /* Panel de misiones centrado y con margen lateral */
+  .hub-missions {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: min(520px, calc(100% - 16px)) !important;
+  }
+  .hub-discoveries {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: min(520px, calc(100% - 16px)) !important;
+  }
+
+  /* El holograma sigue siendo más visible */
+  .hub-center-text { padding: 0 16px; }
+}
+
+@media (max-width: 480px) {
+  .hub-top { flex-wrap: nowrap !important; justify-content: space-between !important; }
+  .hub-top .brand-sep { display: none !important; }
+  .hub-overlay { padding: 10px 8px 60px !important; }
+  .hub-missions, .hub-discoveries {
+    max-width: 100% !important;
+    padding: 12px 10px 10px !important;
+  }
+  .missions-head { padding-bottom: 8px; }
+  .missions-head .label { font-size: 0.5rem; letter-spacing: 0.28em; }
+}
+
+/* ============================================================
+   Acordeón de misiones — solo activo en móvil
+   ============================================================ */
+
+/* Header como botón (en desktop se ve igual que antes) */
+.missions-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(184, 216, 255, 0.08);
+  cursor: default;
+}
+
+/* Chevron oculto en desktop */
+.missions-chevron {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+  margin-left: auto;
+  transition: transform 320ms var(--ease-cinema);
+}
+
+/* Body en desktop: siempre visible */
+.missions-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ---- Modo móvil: acordeón ---- */
+@media (max-width: 880px) {
+  .missions-head {
+    cursor: pointer;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(184, 216, 255, 0.10);
+    transition: 240ms var(--ease-cinema);
+  }
+  .missions-head:hover,
+  .missions-head:focus-visible {
+    outline: none;
+  }
+  .missions-head:active { transform: scale(0.99); }
+
+  .missions-chevron {
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+  }
+
+  /* Cuerpo colapsado por defecto */
+  .missions-body {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      max-height 480ms var(--ease-cinema),
+      opacity 320ms var(--ease-cinema),
+      margin-top 320ms var(--ease-cinema);
+    margin-top: 0;
+    gap: 12px;
+  }
+
+  /* Cuerpo abierto */
+  .hub-missions.is-open .missions-body {
+    max-height: 70vh;
+    overflow-y: auto;
+    opacity: 1;
+    margin-top: 14px;
+  }
+  .hub-missions.is-open .missions-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Padding interno del card más compacto */
+  .hub-missions {
+    padding: 14px 16px !important;
+    gap: 0 !important;
+  }
+  .hub-missions.is-open { padding-bottom: 16px !important; }
+}
+
+@media (max-width: 480px) {
+  .hub-missions { padding: 12px 12px !important; }
+  .missions-head .label { font-size: 0.5rem; letter-spacing: 0.28em; }
+  .missions-count { font-size: 0.5rem; }
+}
+
+/* ============================================================
+   Bitácora compacta y centrada en móvil
+   ============================================================ */
+@media (max-width: 880px) {
+  .hub-discoveries {
+    order: 3;                      /* Después de missions */
+    max-width: min(420px, calc(100% - 16px)) !important;
+    margin: 0 auto !important;
+    padding: 12px 14px !important;
+    background: rgba(9, 11, 17, 0.42) !important;
+    border-color: rgba(184, 216, 255, 0.08) !important;
+  }
+
+  /* Título BITÁCORA centrado */
+  .hub-discoveries .label {
+    display: block !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+    font-size: 0.5rem !important;
+    letter-spacing: 0.42em !important;
+    opacity: 0.65 !important;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(184, 216, 255, 0.06);
+  }
+
+  /* Lista de descubrimientos más compacta */
+  .discovery-list { gap: 8px !important; }
+  .discovery-list li {
+    font-size: 0.72rem !important;
+    line-height: 1.45 !important;
+  }
+  .discovery-list .dot {
+    width: 4px !important;
+    height: 4px !important;
+    margin-top: 6px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hub-discoveries {
+    padding: 10px 12px !important;
+    max-width: calc(100% - 8px) !important;
+  }
+  .hub-discoveries .label {
+    font-size: 0.46rem !important;
+    letter-spacing: 0.36em !important;
+  }
+  .discovery-list li { font-size: 0.68rem !important; }
 }

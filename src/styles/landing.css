@@ -379,13 +379,220 @@
 /* ============================================================
    Responsive
    ============================================================ */
+@media (max-width: 1100px) {
+  .viewport { width: min(82vmin, 600px); height: min(82vmin, 600px); }
+}
+
+
 @media (max-width: 820px) {
-  .landing-overlay { padding: 20px 24px; }
-  .viewport { width: 92vmin; height: 92vmin; }
-  .landing-title { font-size: clamp(2.4rem, 12vw, 4rem); letter-spacing: 0.28em; }
-  .landing-station, .landing-mantra { font-size: 0.58rem; letter-spacing: 0.36em; }
-  .landing-bottombar { justify-content: center; gap: 10px; }
+  .landing-overlay { padding: 18px 20px; }
+  .viewport {
+    width: min(88vmin, 520px);
+    height: min(88vmin, 520px);
+    top: 42%;
+  }
+  .landing-title {
+    font-size: clamp(2.4rem, 12vw, 4rem);
+    letter-spacing: 0.28em;
+  }
+  .landing-station, .landing-mantra {
+    font-size: 0.56rem;
+    letter-spacing: 0.32em;
+  }
+  .viewport-divider { margin: 18px 0 14px; width: 36px; }
+  .landing-tag { font-size: 0.7rem; letter-spacing: 0.32em; }
+  .landing-bottombar { justify-content: center; gap: 10px; flex-wrap: wrap; }
   .bot-sep { display: none; }
   .vp-e, .vp-w { display: none; }
-  .landing-action { margin-bottom: 28px; }
+  .vp-n, .vp-s { font-size: 0.5rem; letter-spacing: 0.28em; }
+  .landing-action { margin-bottom: 24px; gap: 16px; }
+  .brand-version, .topbar-meta { display: none; }
+  .landing-topbar { justify-content: center; }
+  .landing-footnote { font-size: 0.5rem; letter-spacing: 0.24em; }
+}
+
+@media (max-width: 480px) {
+  .landing-overlay { padding: 14px 14px; }
+  .viewport { width: 92vmin; height: 92vmin; top: 40%; }
+  .landing-title {
+    font-size: clamp(2rem, 14vw, 3rem);
+    letter-spacing: 0.22em;
+  }
+  .landing-station { font-size: 0.5rem; letter-spacing: 0.28em; }
+  .landing-mantra  { font-size: 0.48rem; letter-spacing: 0.26em; }
+  .landing-bottombar { display: none; }
+  .landing-action { margin-bottom: 18px; }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .viewport { width: min(70vh, 480px); height: min(70vh, 480px); top: 50%; }
+  .landing-title { font-size: clamp(1.8rem, 6vh, 3rem); }
+  .landing-action { margin-bottom: 12px; gap: 12px; }
+  .landing-footnote { display: none; }
+}
+
+/* ============================================================
+   Fix móvil — flujo vertical real, sin amontonamiento
+   ============================================================ */
+@media (max-width: 820px) {
+  /* La landing pasa a flujo vertical scrolleable */
+  .landing {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  /* El espacio 3D se queda detrás */
+  .landing-space, .landing-veil {
+    position: fixed;
+    inset: 0;
+  }
+
+  /* Overlay pasa a ser flujo normal */
+  .landing-overlay {
+    position: relative;
+    inset: auto;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+    padding: 16px 16px 28px;
+    min-height: 100vh;
+  }
+
+  /* Ventanal en flujo, más chico y centrado */
+  .viewport {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: min(72vw, 360px) !important;
+    height: min(72vw, 360px) !important;
+    margin: 8px auto 4px;
+    animation: none;
+  }
+  .viewport-coords { display: none; }
+  .viewport-ticks span:nth-child(n+13)::after { display: none; }
+
+  /* Texto dentro del ventanal más pequeño */
+  .viewport-content { padding: 0 8px; }
+  .landing-title {
+    font-size: clamp(2rem, 9vw, 3.2rem) !important;
+    letter-spacing: 0.22em !important;
+  }
+  .landing-station {
+    font-size: 0.5rem !important;
+    letter-spacing: 0.32em !important;
+    margin-top: 10px;
+  }
+  .viewport-divider { margin: 12px 0 10px !important; width: 30px; }
+  .landing-mantra {
+    font-size: 0.46rem !important;
+    letter-spacing: 0.28em !important;
+  }
+
+  /* Bloque de acción en flujo */
+  .landing-action {
+    position: relative !important;
+    align-self: center !important;
+    justify-self: auto !important;
+    margin: 0 auto !important;
+    gap: 16px !important;
+    padding: 8px 0 18px;
+  }
+  .landing-tag {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.28em !important;
+    text-align: center;
+    padding: 0 12px;
+  }
+  .landing-footnote {
+    font-size: 0.48rem !important;
+    letter-spacing: 0.22em !important;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  /* Topbar más compacto */
+  .landing-topbar {
+    justify-content: center;
+    padding: 4px 0;
+  }
+  .brand-version, .topbar-meta { display: none; }
+  .brand { font-size: 0.6rem; gap: 8px; }
+  .brand-name { font-size: 0.72rem; }
+
+  /* Bottombar oculto */
+  .landing-bottombar { display: none !important; }
+
+  /* Esquinas decorativas más pequeñas */
+  .hud-corner { display: none; }
+}
+
+@media (max-width: 480px) {
+  .viewport {
+    width: min(80vw, 280px) !important;
+    height: min(80vw, 280px) !important;
+  }
+  .landing-title { font-size: clamp(1.7rem, 11vw, 2.6rem) !important; letter-spacing: 0.18em !important; }
+}
+
+/* ============================================================
+   Fix v2 — Landing: títulos legibles, todo el bloque visible
+   ============================================================ */
+@media (max-width: 820px) {
+  /* Ventanal mucho más pequeño en móvil — debe caber con texto interno */
+  .viewport {
+    width: min(64vw, 280px) !important;
+    height: min(64vw, 280px) !important;
+  }
+  /* Title ERIS drásticamente reducido */
+  .landing-title {
+    font-size: clamp(1.4rem, 7vw, 2.2rem) !important;
+    letter-spacing: 0.18em !important;
+    padding-left: 0.18em !important;
+    margin: 0 !important;
+  }
+  .landing-station {
+    font-size: 0.42rem !important;
+    letter-spacing: 0.24em !important;
+    margin-top: 6px !important;
+  }
+  .viewport-divider { margin: 8px 0 6px !important; width: 22px !important; }
+  .landing-mantra {
+    font-size: 0.4rem !important;
+    letter-spacing: 0.18em !important;
+  }
+  /* Topbar más compacto */
+  .brand { font-size: 0.54rem !important; }
+  .brand-name { font-size: 0.66rem !important; }
+}
+
+@media (max-width: 480px) {
+  .viewport {
+    width: min(70vw, 240px) !important;
+    height: min(70vw, 240px) !important;
+  }
+  .landing-title {
+    font-size: clamp(1.2rem, 8vw, 1.8rem) !important;
+    letter-spacing: 0.14em !important;
+  }
+  .landing-station { font-size: 0.38rem !important; }
+  .landing-mantra  { font-size: 0.36rem !important; letter-spacing: 0.14em !important; }
+  .viewport-divider { width: 18px !important; margin: 6px 0 4px !important; }
+  /* Action panel compacto */
+  .landing-tag { font-size: 0.56rem !important; }
+  .landing-footnote { font-size: 0.42rem !important; padding: 0 8px !important; }
+}
+
+/* Para 360px (Galaxy Fold y otros) */
+@media (max-width: 360px) {
+  .viewport {
+    width: min(78vw, 200px) !important;
+    height: min(78vw, 200px) !important;
+  }
+  .landing-title {
+    font-size: 1.1rem !important;
+    letter-spacing: 0.12em !important;
+  }
 }

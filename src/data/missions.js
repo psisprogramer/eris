@@ -1,7 +1,10 @@
 /* ============================================================
    ERIS · Misiones científicas
-   No son niveles. Son tareas de una tripulación espacial.
-   Cada misión define un escenario inicial de cuerpos.
+   Cada misión define:
+   - bodies: configuración inicial del sistema
+   - quiz: 2 preguntas A/B/C que aparecen en el simulador
+   - debriefQuestion: 1 pregunta de observación A/B/C/D en el Debrief
+   - questions: preguntas reflexivas heredadas (referencia)
    ============================================================ */
 
 export const missions = [
@@ -21,6 +24,36 @@ export const missions = [
       { id: 'probe', mass: 1,  position: [6, 0, 0],   velocity: [0, 0, 2.6], color: '#7DE2FC', radius: 0.35, label: 'Sonda' },
     ],
     focus: 'mass',
+    quiz: [
+      {
+        q: '¿Qué ocurre con el espacio cuando aumenta la masa del cuerpo central?',
+        options: [
+          'El espacio permanece plano',
+          'El espacio se curva más intensamente',
+          'La gravedad desaparece',
+        ],
+        correct: 1,
+      },
+      {
+        q: '¿Por qué los objetos cercanos cambian su trayectoria alrededor de una gran masa?',
+        options: [
+          'Porque el espacio-tiempo se deforma',
+          'Porque las estrellas empujan los objetos',
+          'Porque no existe gravedad en el espacio',
+        ],
+        correct: 0,
+      },
+    ],
+    debriefQuestion: {
+      q: 'Cuando aumentaste la masa del cuerpo central en la simulación, ¿qué observaste?',
+      options: [
+        'La malla espacial se curvó más alrededor del cuerpo',
+        'El espacio desapareció',
+        'Los cuerpos dejaron de moverse',
+        'La gravedad cambió de color solamente',
+      ],
+      correct: 0,
+    },
     questions: [
       '¿Qué pasa con la trayectoria de la sonda si aumentas la masa de la estrella?',
       '¿Por qué crees que el espacio se ve hundido bajo los cuerpos masivos?',
@@ -42,6 +75,36 @@ export const missions = [
       { id: 'probe',  mass: 1,  position: [7, 0, 0], velocity: [0, 0, 3.3], color: '#7DE2FC', radius: 0.3, label: 'Sonda' },
     ],
     focus: 'velocity',
+    quiz: [
+      {
+        q: '¿Qué necesita una sonda para mantener una órbita estable?',
+        options: [
+          'Tener velocidad y gravedad equilibradas',
+          'Detenerse completamente',
+          'Alejarse lo más posible',
+        ],
+        correct: 0,
+      },
+      {
+        q: '¿Qué sucede si la velocidad de una sonda es demasiado baja?',
+        options: [
+          'Escapa del sistema',
+          'Se mantiene estable para siempre',
+          'Puede caer hacia el cuerpo central',
+        ],
+        correct: 2,
+      },
+    ],
+    debriefQuestion: {
+      q: '¿Qué pasó cuando encontraste la velocidad correcta para la sonda?',
+      options: [
+        'La sonda se quedó quieta',
+        'La sonda completó una órbita estable',
+        'La gravedad desapareció',
+        'El planeta explotó',
+      ],
+      correct: 1,
+    },
     questions: [
       '¿La órbita más rápida es siempre la más estable?',
       '¿Qué relación hay entre la distancia y la velocidad necesaria para orbitar?',
@@ -64,6 +127,36 @@ export const missions = [
       { id: 'probe', mass: 0.5, position: [0, 0, 8], velocity: [3.0, 0, 0], color: '#7DE2FC', radius: 0.25, label: 'Sonda' },
     ],
     focus: 'free',
+    quiz: [
+      {
+        q: '¿Qué ocurre en un sistema binario?',
+        options: [
+          'Un planeta deja de moverse',
+          'Dos cuerpos giran alrededor de un centro común',
+          'La gravedad deja de actuar',
+        ],
+        correct: 1,
+      },
+      {
+        q: '¿Por qué las dos estrellas del sistema binario permanecen conectadas?',
+        options: [
+          'Porque existe una fuerza gravitacional mutua',
+          'Porque están unidas físicamente',
+          'Porque no tienen masa',
+        ],
+        correct: 0,
+      },
+    ],
+    debriefQuestion: {
+      q: '¿Qué pudiste observar entre las dos estrellas del sistema binario?',
+      options: [
+        'Una estrella empujaba a la otra fuera del sistema',
+        'Las dos estrellas giraban alrededor de un mismo centro',
+        'Las estrellas dejaron de moverse',
+        'Una estrella absorbió completamente a la otra',
+      ],
+      correct: 1,
+    },
     questions: [
       '¿Hacia dónde "cae" la sonda al pasar entre las dos estrellas?',
       '¿Qué cambia si una estrella es mucho más masiva que la otra?',

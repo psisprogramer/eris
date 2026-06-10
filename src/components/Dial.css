@@ -175,3 +175,50 @@
 .dial-lg .dial-unit  { font-size: 0.58rem; letter-spacing: 0.32em; }
 .dial-lg .dial-label { font-size: 0.6rem; letter-spacing: 0.42em; }
 .dial-lg .dial-fill  { filter: drop-shadow(0 0 12px var(--cyan-glow)); stroke-width: 2.4; }
+
+/* ============================================================
+   Responsive — diales se reducen progresivamente
+   ============================================================ */
+@media (max-width: 820px) {
+  .dial-md .dial-wrap { width: 64px; height: 64px; }
+  .dial-md .dial-value { font-size: 0.7rem; }
+  .dial-md .dial-unit  { font-size: 0.46rem; }
+  .dial-md .dial-label { font-size: 0.5rem; letter-spacing: 0.32em; }
+  .dial { gap: 6px; }
+}
+
+@media (max-width: 640px) {
+  .dial-md .dial-wrap { width: 54px; height: 54px; }
+  .dial-md .dial-value { font-size: 0.62rem; }
+  .dial-md .dial-unit  { font-size: 0.42rem; }
+  .dial-md .dial-label { font-size: 0.46rem; letter-spacing: 0.28em; }
+  .dial { gap: 4px; }
+}
+
+@media (max-width: 480px) {
+  .dial-md .dial-wrap { width: 46px; height: 46px; }
+  .dial-md .dial-value { font-size: 0.56rem; }
+  .dial-md .dial-unit  { font-size: 0.38rem; letter-spacing: 0.2em; }
+  .dial-md .dial-label { font-size: 0.42rem; letter-spacing: 0.24em; }
+}
+
+/* Fix móvil agresivo */
+@media (max-width: 820px) {
+  .dial-md .dial-wrap { width: 56px !important; height: 56px !important; }
+  .dial-md .dial-value { font-size: 0.62rem !important; }
+  .dial-md .dial-unit  { font-size: 0.4rem !important; }
+  .dial-md .dial-label { font-size: 0.42rem !important; letter-spacing: 0.22em !important; }
+}
+@media (max-width: 640px) {
+  .dial-md .dial-wrap { width: 46px !important; height: 46px !important; }
+  .dial-md .dial-value { font-size: 0.54rem !important; }
+  .dial-md .dial-unit  { font-size: 0.36rem !important; }
+  .dial-md .dial-label { font-size: 0.38rem !important; letter-spacing: 0.18em !important; }
+  .dial { gap: 2px !important; }
+}
+@media (max-width: 480px) {
+  .dial-md .dial-wrap { width: 40px !important; height: 40px !important; }
+  .dial-md .dial-value { font-size: 0.48rem !important; }
+  .dial-md .dial-unit  { font-size: 0.32rem !important; letter-spacing: 0.14em !important; }
+  .dial-md .dial-label { font-size: 0.34rem !important; letter-spacing: 0.14em !important; }
+}

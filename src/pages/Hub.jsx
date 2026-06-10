@@ -1,9 +1,9 @@
 /* ============================================================
    ERIS · Hub / Centro de Operaciones
-   Holograma planetario dominante. Bitácora minimal a la izquierda.
-   Sin asistente IA, sin paneles pesados — solo selección.
+   Bitácora con acordeón en móvil para liberar espacio.
    ============================================================ */
 
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { missions } from '../data/missions.js';
 import MissionCard from '../components/MissionCard.jsx';
@@ -16,6 +16,9 @@ export default function Hub() {
   const { completed, discoveries } = useMissionProgress();
   const completedCount = Object.keys(completed).length;
   const pct = Math.round((completedCount / missions.length) * 100);
+
+  // En móvil empieza cerrado; en desktop la clase CSS lo fuerza abierto.
+  const [missionsOpen, setMissionsOpen] = useState(false);
 
   return (
     <div className="hub full-screen vignette aberration">
@@ -47,34 +50,46 @@ export default function Hub() {
           </p>
         </div>
 
-        {/* ---- Bitácora flotante izquierda ---- */}
-        <aside className="hub-missions">
-          <div className="missions-head">
+        {/* ---- Bitácora ---- */}
+        <aside className={`hub-missions ${missionsOpen ? 'is-open' : ''}`}>
+          <button
+            type="button"
+            className="missions-head"
+            onClick={() => setMissionsOpen((s) => !s)}
+            aria-expanded={missionsOpen}
+            aria-controls="missions-body"
+          >
             <span className="label">MODOS DE EXPERIMENTACIÓN</span>
             <span className="missions-count">{String(completedCount).padStart(2, '0')} / {String(missions.length).padStart(2, '0')}</span>
-          </div>
+            <span className="missions-chevron" aria-hidden="true">
+              <svg viewBox="0 0 12 12" width="12" height="12">
+                <path d="M2 4 L6 8 L10 4" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
+          </button>
 
-          <div className="mission-list">
-            {missions.map((m, i) => (
-              <MissionCard
-                key={m.id}
-                mission={m}
-                index={i}
-                completed={!!completed[m.id]}
-              />
-            ))}
-          </div>
-
-          {/* Mini progreso integrado */}
-          <div className="missions-progress">
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${pct}%` }} />
+          <div className="missions-body" id="missions-body">
+            <div className="mission-list">
+              {missions.map((m, i) => (
+                <MissionCard
+                  key={m.id}
+                  mission={m}
+                  index={i}
+                  completed={!!completed[m.id]}
+                />
+              ))}
             </div>
-            <span className="progress-pct">{pct}%</span>
+
+            <div className="missions-progress">
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${pct}%` }} />
+              </div>
+              <span className="progress-pct">{pct}%</span>
+            </div>
           </div>
         </aside>
 
-        {/* ---- Descubrimientos (derecha, solo si hay) ---- */}
+        {/* ---- Descubrimientos ---- */}
         {discoveries.length > 0 && (
           <aside className="hub-discoveries">
             <span className="label">BITÁCORA</span>
