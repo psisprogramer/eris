@@ -76,7 +76,7 @@ Sin botones tradicionales. Sin cajas rígidas. Sin paneles corporativos.
 
 ## Roadmap
 
-- **Fase 1** ✅ Landing · Hub · Simulación con controles de masa/velocidad · Debrief · 3 misiones · IA asistente · deformación espacial.
+- **Fase 1** Landing · Hub · Simulación con controles de masa/velocidad · Debrief · 3 misiones · IA asistente · deformación espacial.
 - **Fase 2** — Más misiones, sistema de logros, IA contextual que reacciona a lo que el usuario está haciendo, simulaciones con efectos relativistas básicos (lensing).
 - **Fase 3** — Narrativa larga, modo de exploración libre con generación procedural de sistemas, laboratorio espacial, simulaciones avanzadas (Lagrange, asistencia gravitacional).
 
